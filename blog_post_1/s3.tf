@@ -17,9 +17,8 @@ data "aws_iam_policy_document" "bucket_website_hosting" {
     ]
     principals {
       # identifiers = ["*"]
-      identifiers = [
-      aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
-      type = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
+      type        = "AWS"
     }
     # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
     resources = [
@@ -37,7 +36,6 @@ resource "null_resource" "upload_static_files" {
     command = "aws s3 cp index.html s3://${var.BUCKET_NAME}"
     // use `sync` for uploading directories
   }
-
   depends_on = [aws_s3_bucket.website_static_files]
 }
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html#using-s3-commands-managing-objects-sync
