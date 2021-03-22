@@ -29,8 +29,8 @@ data "aws_iam_policy_document" "bucket_website_hosting" {
     ]
   }
 }
-
 # https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy#refactor-your-policy
+
 resource "null_resource" "upload_static_files" {
   provisioner "local-exec" {
     command = "aws s3 cp index.html s3://${var.BUCKET_NAME}"
