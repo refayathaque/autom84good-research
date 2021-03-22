@@ -34,7 +34,9 @@ data "aws_iam_policy_document" "bucket_website_hosting" {
 resource "null_resource" "upload_static_files" {
   provisioner "local-exec" {
     command = "aws s3 cp index.html s3://${var.BUCKET_NAME}"
-    // use `sync` for uploading directories
+    # command = "aws s3 sync <name_of_build_directory> s3://${var.BUCKET_NAME}"
+    // use `sync` for uploading directories, 
+    // if you have a react/vue/angular app, whatever directory you get out of building (`npm run build`) you should include in this working directory with rest of `.tf` files
   }
   depends_on = [aws_s3_bucket.website_static_files]
 }
