@@ -9,6 +9,7 @@ resource "aws_s3_bucket" "website_static_files" {
   force_destroy = true
 }
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#static-website-hosting
+
 data "aws_iam_policy_document" "bucket_website_hosting" {
   statement {
     actions = [
@@ -30,7 +31,6 @@ data "aws_iam_policy_document" "bucket_website_hosting" {
 }
 
 # https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy#refactor-your-policy
-# Upload `index.html` to S3
 resource "null_resource" "upload_static_files" {
   provisioner "local-exec" {
     command = "aws s3 cp index.html s3://${var.BUCKET_NAME}"
